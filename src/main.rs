@@ -69,7 +69,7 @@ async fn hello_world(name: web::Path<String>) -> HttpResponse {
     hello.to_response()
 }
 
-#[get("/todo")]
+#[get("/")]
 async fn todo(pool: web::Data<SqlitePool>) -> HttpResponse {
     let rows = sqlx::query("SELECT task FROM tasks;")
         .fetch_all(pool.as_ref())
@@ -104,6 +104,6 @@ async fn update(pool: web::Data<SqlitePool>, form: web::Form<Task>) -> HttpRespo
         _ => {}
     }
     HttpResponse::Found()
-        .append_header(("Location", "/todo"))
+        .append_header(("Location", "/"))
         .finish()
 }
